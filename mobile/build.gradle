@@ -11,10 +11,26 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    signingConfigs {
+        release {
+            storeFile file("my-release-key.keystore")
+            storePassword "123456"
+            keyAlias "mykey"
+            keyPassword "123456"
+        }
+    }
     buildTypes {
+        debug {
+            // custom feature definition
+            buildConfigField "boolean", "UPLOAD_CRASHES", "false"
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+
+            // custom feature definition
+            buildConfigField "boolean", "UPLOAD_CRASHES", "true"
         }
     }
 }

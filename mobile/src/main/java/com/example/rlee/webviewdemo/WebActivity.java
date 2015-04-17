@@ -32,6 +32,13 @@ public class WebActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
 
+        // check if we can access the custom feature, which we defined in build.gradle
+        if (!BuildConfig.UPLOAD_CRASHES) {
+            Log.i(TAG, "Debug mode, UPLOAD_CRASHES does NOT be supported.");
+        } else {
+            Log.i(TAG, "Release mode, UPLOAD_CRASHES does be supported!");
+        }
+
         webView = (WebView) findViewById(R.id.webview);
         webView.loadUrl(LOCAL_RESOURCE);
         webView.addJavascriptInterface(new JSI(this, webView), "JSI");
